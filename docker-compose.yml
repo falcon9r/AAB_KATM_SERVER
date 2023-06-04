@@ -1,0 +1,28 @@
+version: '3.4'
+
+networks:
+  backend: 
+
+services:
+    aab_katm_server:
+        image: ${DOCKER_REGISTRY-}aabkatmserver
+        build:
+          context: .
+          dockerfile: AAB_KATM_SERVER/Dockerfile
+        ports:
+           - 8001:80 
+        depends_on:
+            - sql-server
+        networks: 
+            - backend
+    sql-server:
+        container_name: sql-server
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        ports:
+            - 1433:1433
+        environment:
+          - ACCEPT_EULA=Y
+          - SA_PASSWORD=RPSsql12345 
+        networks:
+            - backend
+    
