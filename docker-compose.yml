@@ -15,6 +15,8 @@ services:
             - sql-server
         networks: 
             - backend
+        environment:
+            DB_CONN: "Server = sql-server; Database = aab; User Id = SA; Password = RPSsql12345;TrustServerCertificate=true"
     sql-server:
         container_name: sql-server
         image: mcr.microsoft.com/mssql/server:2022-latest
